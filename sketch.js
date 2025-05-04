@@ -157,7 +157,7 @@ function preDraw(){
   push()
   translate(width*0.25, height*0.95)
   imageMode(CENTER)
-  scale(0.3*logo.width/width)
+  scale(0.3*logo.width/width*pixelDensity)
   image(logo,0,0)
   pop()
   textAlign(CENTER, CENTER)
