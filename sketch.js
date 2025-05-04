@@ -3,6 +3,7 @@ var source;
 var cells;
 var step=10;
 let slider
+let logo
 
 let bars=[]
 let drones=[]
@@ -47,7 +48,8 @@ let currentDevice=0
 // let captureH=480
 let sourceW=400
 let sourceH=400
-
+let hasStarted=false
+let startButton
 
 
 function preload(){
@@ -57,6 +59,7 @@ function preload(){
   for(let i=0; i<numDrones; i++){
     droneSounds[i]=loadSound("./droneSounds/drone"+nf(i,2,0)+'.mp3')
   }
+  logo=loadImage('./CrispySmokedWeb_Bacon.png')
 }
 
 
@@ -107,8 +110,9 @@ function setup() {
   sourceH=inputHeight
   navigator.mediaDevices.enumerateDevices()
     .then(gotDevices);
-  button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08)
-  select=new Button(viewportWidth*0.8,viewportHeight*0.725,viewportHeight*0.04)
+  button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08,'triggers')
+  select=new Button(viewportWidth*0.8,viewportHeight*0.725,viewportHeight*0.04,'cam')
+  startButton=new Button(viewportWidth*0.5,viewportHeight*0.5,viewportWidth*0.25,'start')
   
   // colorMode(HSB);
   source=createImage(sourceW, sourceH);
@@ -133,17 +137,7 @@ function setup() {
   for(let i=0; i<stepsPerBar*numBars; i++){
     triggers.push(new Trigger(inputWidth, i*step, triggerWidth, step, floor(i/stepsPerBar), i, triggerBar))
   }
-  slider = createSlider(-100, 100,startingLightness,1);
-  slider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.2);
-  slider.size(triggerHeight*0.8);
-  // slider.style('transform', 'rotate(270deg)');
-  sensitivitySlider = createSlider(1,10,startingSensitivity,0.25);
-  sensitivitySlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.4);
-  sensitivitySlider.size(inputWidth*0.8);
-  // sensitivitySlider.style('transform', 'rotate(90deg)');
-  baseSlider = createSlider(0.3,0.7,startingSensitivityBase,0.025);
-  baseSlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.6);
-  baseSlider.size(inputWidth*0.8);
+  
   droneSounds.forEach(ds=>{
     ds.loop()
     ds.setVolume(0)
@@ -151,7 +145,66 @@ function setup() {
 }
 
 function draw() {
+  if(hasStarted){
+    realDraw()
+  } else {
+    preDraw()
+  }
+}
+
+function preDraw(){
   background(50)
+  push()
+  translate(width*0.25, height*0.95)
+  imageMode(CENTER)
+  scale(0.35)
+  image(logo,0,0)
+  pop()
+  textAlign(CENTER, CENTER)
+  textFont('courier')
+  textSize(width*0.025)
+  text('IS A WORLD WELL MAPPED A WORLD CONTROLLED?',width/2, height*0.15)
+  textSize(width*0.05)
+  text('Image Scanner',width/2, height*0.2)
+  textSize(width*0.025)
+  text('for Brian Gibson',width*0.35, height*0.25)
+  text('by Dave Webb',width*0.6, height*0.275)
+  startButton.run()
+  startButton.show()
+  if(startButton.isDown){
+    hasStarted=true
+    setupSliders()
+    startDrones()
+  }
+}
+
+function startDrones(){
+  droneSounds.forEach(ds=>{
+    ds.loop()
+    ds.setVolume(0)
+  })
+}
+
+function setupSliders(){
+  slider = createSlider(-100, 100,startingLightness,1);
+  slider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.2);
+  slider.size(triggerHeight*0.8);
+  sensitivitySlider = createSlider(1,10,startingSensitivity,0.25);
+  sensitivitySlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.4);
+  sensitivitySlider.size(inputWidth*0.8);
+  baseSlider = createSlider(0.3,0.7,startingSensitivityBase,0.025);
+  baseSlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.6);
+  baseSlider.size(inputWidth*0.8);
+}
+
+function realDraw() {
+  background(50)
+  push()
+  translate(width*0.25, height*0.95)
+  imageMode(CENTER)
+  scale(0.35)
+  image(logo,0,0)
+  pop()
   sensitivityBase=baseSlider.value()
   sensitivity=sensitivitySlider.value()
   modifyShade=slider.value()
@@ -190,7 +243,10 @@ function draw() {
   // stroke(255)
   noStroke()
   strokeWeight(1)
-  textSize(width*0.05)
+  textSize(width*0.03)
+  textSize(this.ts)
+  textAlign(LEFT, BASELINE)
+  textFont('courier')
   text(`lightness ${slider.value()}`,inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.17)
   text(`sensitivity ${sensitivitySlider.value()}`,inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.37)
   text(`sensitivity base ${baseSlider.value()}`,inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.57)
@@ -497,7 +553,7 @@ class BarOfGreyness{
 
 
 class Button{
-  constructor(x,y,r){
+  constructor(x,y,r,label){
     this.x=x;
     this.y=y;
     this.r=r;
@@ -505,6 +561,14 @@ class Button{
     this.isMouse=false;
     this.isTouch=false;
     this.isDown=false;
+    this.label=label;
+    textSize(20)
+    let tw=textWidth(label)
+    this.ts=20*r*1/tw
+  }
+
+  click(){
+    return this.hover()
   }
   
   run(){
@@ -524,6 +588,7 @@ class Button{
   }
   
   show(){
+    noStroke()
     fill(128)
     if(this.isTouch){
       fill(0,0,255)
@@ -535,5 +600,10 @@ class Button{
       fill(128)
     }
     ellipse(this.x, this.y,this.r*2)
+    fill(200)
+    textSize(this.ts)
+    textAlign(CENTER, CENTER)
+    textFont('courier')
+    text(this.label,this.x, this.y)
   }
 }
