@@ -50,6 +50,7 @@ let sourceW=400
 let sourceH=400
 let hasStarted=false
 let startButton
+let stopButton
 
 
 function preload(){
@@ -112,6 +113,7 @@ function setup() {
     .then(gotDevices);
   button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08,'triggers')
   select=new Button(viewportWidth*0.8,viewportHeight*0.725,viewportHeight*0.04,'cam')
+  stopButton=new Button(viewportWidth*0.8,viewportHeight*0.625,viewportHeight*0.04,'stop')
   startButton=new Button(viewportWidth*0.5,viewportHeight*0.5,viewportWidth*0.25,'start')
   
   // colorMode(HSB);
@@ -185,6 +187,17 @@ function startDrones(){
     ds.loop()
     ds.setVolume(0)
   })
+}
+
+function stopDrones(){
+  droneSounds.forEach(ds=>{
+    ds.stop()
+    ds.setVolume(0)
+  })
+}
+
+function stopSliders(){
+  removeElements()
 }
 
 function setupSliders(){
@@ -261,7 +274,15 @@ function realDraw() {
   button.show()
   select.run()
   select.show()
-  if(select.isDown && select.isDown!=selectPrev){
+  stopButton.run()
+  stopButton.show()
+  if(stopButton.isDown){
+    hasStarted=false
+    setupSliders()
+    stopDrones()
+    stopSliders()
+  }
+  if(stopButton.isDown && select.isDown!=selectPrev){
     //trigger
     console.log('trigger')
     currentDevice=(currentDevice+1)%numDevices
