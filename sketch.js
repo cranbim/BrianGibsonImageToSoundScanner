@@ -1,4 +1,4 @@
-let version=0.017
+let version=0.018
 let capture;
 var source;
 var cells;
@@ -53,6 +53,7 @@ let sourceH=400
 let hasStarted=false
 let startButton
 let stopButton
+let aboutButton
 
 
 function preload(){
@@ -117,6 +118,7 @@ function setup() {
   select=new Button(viewportWidth*0.8,viewportHeight*0.725,viewportHeight*0.04,'cam')
   stopButton=new Button(viewportWidth*0.8,viewportHeight*0.625,viewportHeight*0.04,'stop')
   startButton=new Button(viewportWidth*0.5,viewportHeight*0.5,viewportWidth*0.25,'start')
+  aboutButton=new Button(viewportWidth*0.7,viewportHeight*0.7,viewportWidth*0.1,'info')
   
   // colorMode(HSB);
   source=createImage(sourceW, sourceH);
@@ -182,12 +184,17 @@ function preDraw(){
   text('@crispysmokedweb',width*0.75, height*0.95)
   startButton.run()
   startButton.show()
+  aboutButton.run()
+  aboutButton.show()
   if(startButton.isDown){
     hasStarted=true
     setupSliders()
     startDrones()
     constraints.video.deviceId.exact=devices[currentDevice].id
     capture=createCapture(constraints);
+  }
+  if(aboutButton.isDown){
+    document.location='about.html'
   }
 }
 

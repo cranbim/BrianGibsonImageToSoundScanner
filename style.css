@@ -5,3 +5,10 @@ html, body {
 canvas {
   display: block;
 }
+
+#about {
+  margin: auto;
+  width: 70%;
+  padding: 10px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
