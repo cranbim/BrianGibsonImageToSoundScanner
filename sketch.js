@@ -1,4 +1,4 @@
-let version=0.018
+let version=0.019
 let capture;
 var source;
 var cells;
@@ -374,7 +374,7 @@ class Trigger{
     fill(200,0,0)
     noStroke()
     y=this.val*this.h
-    ellipse(this.valPoint, this.h-y, 2+10*this.val)
+    ellipse(this.valPoint, this.h-y, 2+20*this.val)
     pop()
   }
 }
@@ -423,7 +423,7 @@ class DroneChannel{
     fill(200,0,0)
     noStroke()
     y=this.val*this.h
-    ellipse(this.valPoint, this.h-y, 5)
+    ellipse(this.valPoint, this.h-y, 2+20*this.val)
     pop()
   }
   
@@ -474,7 +474,7 @@ class DroneChannelVert{
     fill(200,0,0)
     noStroke()
     x=this.val*this.w
-    ellipse(x, this.valPoint, 5)
+    ellipse(x, this.valPoint, 10+10*this.val)
     pop()
   }
   
