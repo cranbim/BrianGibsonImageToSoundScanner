@@ -1,3 +1,4 @@
+let version=0.012
 let capture;
 var source;
 var cells;
@@ -162,8 +163,11 @@ function preDraw(){
   scale(0.4*width/500)
   image(logo,0,0)
   pop()
-  textAlign(CENTER, CENTER)
+  textAlign(LEFT, CENTER)
   textFont('courier')
+  textSize(width*0.03)
+  text(version,width*0.05, width*0.05)
+  textAlign(CENTER, CENTER)
   textSize(width*0.03)
   text('IS A WORLD WELL MAPPED A WORLD CONTROLLED?',width/2, height*0.15)
   textSize(width*0.05)
