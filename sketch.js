@@ -284,9 +284,9 @@ function realDraw() {
     stopDrones()
     stopSliders()
   }
-  if(stopButton.isDown && select.isDown!=selectPrev){
+  if(select.isDown && select.isDown!=selectPrev){
     //trigger
-    console.log('trigger')
+    console.log('change cam')
     currentDevice=(currentDevice+1)%numDevices
     constraints.video.deviceId.exact=devices[currentDevice].id
     capture=createCapture(constraints);
