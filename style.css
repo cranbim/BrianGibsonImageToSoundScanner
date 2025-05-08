@@ -12,3 +12,8 @@ canvas {
   padding: 10px;
   font-family: "Lucida Console", "Courier New", monospace;
 }
+
+button {
+  padding: 10px;
+  font-size: 24px;
+}
