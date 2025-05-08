@@ -280,6 +280,11 @@ function realDraw() {
   button.show()
   select.run()
   select.show()
+  //show cam current value and number of cams
+  textSize(width*0.03)
+  textAlign(LEFT, CENTER)
+  text(currentDevice, viewportWidth*0.9,viewportHeight*0.715)
+  text(numDevices, viewportWidth*0.9,viewportHeight*0.735)
   stopButton.run()
   stopButton.show()
   if(stopButton.isDown){
