@@ -179,6 +179,8 @@ function preDraw(){
     hasStarted=true
     setupSliders()
     startDrones()
+    constraints.video.deviceId.exact=devices[currentDevice].id
+    capture=createCapture(constraints);
   }
 }
 
