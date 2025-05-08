@@ -1,4 +1,4 @@
-let version=0.014
+let version=0.015
 let capture;
 var source;
 var cells;
@@ -31,6 +31,7 @@ let testSounds=[]
 let droneSounds=[]
 let numSounds=20
 let numDrones=5
+let droneMaxVolume=0.3
 
 let button;
 let select;
@@ -248,7 +249,7 @@ function realDraw() {
   dronesV.forEach((drone,i)=>{
     drone.show(source.pixels)
     drone.run(bars[i].val)
-    droneSounds[i].setVolume(drone.val*0.5)
+    droneSounds[i].setVolume(drone.val*droneMaxVolume)
   })
   triggers.forEach((trigger,i)=>{
     trigger.show()
