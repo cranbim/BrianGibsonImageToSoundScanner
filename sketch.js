@@ -29,7 +29,7 @@ let viewportHeight
 
 let testSounds=[]
 let droneSounds=[]
-let numSounds=11
+let numSounds=20
 let numDrones=5
 
 let button;
@@ -56,7 +56,7 @@ let stopButton
 
 function preload(){
   for(let i=0; i<numSounds; i++){
-    testSounds[i]=loadSound("./tempSounds/"+nf(i,2,0)+'.mp3')
+    testSounds[i]=loadSound("./tempSounds/trigger"+nf(i,2,0)+'.mp3')
   }
   for(let i=0; i<numDrones; i++){
     droneSounds[i]=loadSound("./droneSounds/drone"+nf(i,2,0)+'.mp3')
