@@ -1,4 +1,4 @@
-let version=0.016
+let version=0.017
 let capture;
 var source;
 var cells;
@@ -101,14 +101,14 @@ function setup() {
   // createCanvas(535, 800);
   viewportWidth=width
   viewportHeight=height
-  inputWidth=floor(viewportWidth*0.7)
+  inputWidth=floor(viewportWidth*0.8)
   step=floor(inputWidth/40)
   inputWidth=step*40
   inputHeight=inputWidth//floor(viewportWidth*0.7)
-  triggerWidth=floor(inputWidth*3/7)
+  triggerWidth=floor(inputWidth*2/8)
   triggerHeight=inputWidth
   droneWidth=inputWidth
-  droneHeight=inputWidth*0.5
+  droneHeight=inputWidth*0.25
   sourceW=inputWidth
   sourceH=inputHeight
   navigator.mediaDevices.enumerateDevices()
@@ -170,8 +170,10 @@ function preDraw(){
   text(version,width*0.05, width*0.05)
   textAlign(CENTER, CENTER)
   textSize(width*0.03)
-  text('IS A WORLD WELL MAPPED A WORLD CONTROLLED?',width/2, height*0.15)
+  text('IS A WORLD WELL MAPPED A WORLD CONTROLLED?',width/2, height*0.125)
   textSize(width*0.05)
+  text('Tower of Babel',width/2, height*0.165)
+  textSize(width*0.03)
   text('Image to Sound Scanner',width/2, height*0.2)
   textSize(width*0.03)
   text('for Brian Gibson',width*0.35, height*0.25)
@@ -209,14 +211,14 @@ function stopSliders(){
 
 function setupSliders(){
   slider = createSlider(-100, 100,startingLightness,1);
-  slider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.2);
-  slider.size(triggerHeight*0.8);
+  slider.position(inputWidth*0.05,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.2);
+  slider.size(inputWidth*0.7);
   sensitivitySlider = createSlider(1,10,startingSensitivity,0.25);
-  sensitivitySlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.4);
-  sensitivitySlider.size(inputWidth*0.8);
+  sensitivitySlider.position(inputWidth*0.05,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.4);
+  sensitivitySlider.size(inputWidth*0.7);
   baseSlider = createSlider(0.3,0.7,startingSensitivityBase,0.025);
-  baseSlider.position(inputWidth*0.1,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.6);
-  baseSlider.size(inputWidth*0.8);
+  baseSlider.position(inputWidth*0.05,inputHeight+droneHeight+(height-inputHeight-droneHeight)*0.6);
+  baseSlider.size(inputWidth*0.7);
 }
 
 function realDraw() {
@@ -365,7 +367,7 @@ class Trigger{
     fill(200,0,0)
     noStroke()
     y=this.val*this.h
-    ellipse(this.valPoint, this.h-y, 2+5*this.val)
+    ellipse(this.valPoint, this.h-y, 2+10*this.val)
     pop()
   }
 }
