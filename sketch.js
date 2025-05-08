@@ -1,4 +1,4 @@
-let version=0.015
+let version=0.016
 let capture;
 var source;
 var cells;
@@ -21,8 +21,8 @@ let outputWidth, outputHeight
 let bw, bh, stepsPerBar
 let sensitivitySlider, sensitivity
 let baseSlider, sensitivityBase
-let startingLightness=-37
-let startingSensitivity=8
+let startingLightness=-55
+let startingSensitivity=6.5
 let startingSensitivityBase=0.6
 let viewportWidth
 let viewportHeight
