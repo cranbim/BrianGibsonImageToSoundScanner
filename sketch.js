@@ -2,7 +2,7 @@
 // It's not elegant or anything. Created specifically to complement the art work 'Tower of Babel'
 // in response to Brian's question - what would this sound like?
 
-let version=0.021
+let version=0.022
 let capture;
 var source;
 var cells;
@@ -97,7 +97,7 @@ function gotDevices(deviceInfos) {
 }
 
 
-async function setup() {
+function setup() {
   if(windowWidth>windowHeight/1.6){
     createCanvas(windowHeight/1.8, windowHeight);
   } else {
@@ -117,7 +117,9 @@ async function setup() {
   droneHeight=inputWidth*0.25
   sourceW=inputWidth
   sourceH=inputHeight
-  await navigator.mediaDevices.getUserMedia({ video: true });
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then()
+    .catch(err=>console.log('error:',err))
   navigator.mediaDevices.enumerateDevices()
     .then(gotDevices);
   button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08,'triggers')
