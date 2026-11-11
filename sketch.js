@@ -73,8 +73,9 @@ function preload(){
 
 function gotDevices(deviceInfos) {
   // console.log(deviceInfos);
-  for (let i = 0; i !== deviceInfos.length; ++i) {
+  for (let i = 0; i < deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
+    console.log(i,deviceInfo.kind)
     if (deviceInfo.kind == 'videoinput') {
       devices.push({
         label: deviceInfo.label,
@@ -118,10 +119,15 @@ function setup() {
   sourceW=inputWidth
   sourceH=inputHeight
   navigator.mediaDevices.getUserMedia({ video: true })
-    .then()
-    .catch(err=>console.log('error:',err))
-  navigator.mediaDevices.enumerateDevices()
-    .then(gotDevices);
+    .then(stream => {
+      stream.getTracks().forEach(track => track.stop());
+      // Permission granted; enumerate devices now
+      return navigator.mediaDevices.enumerateDevices();
+    })
+  .then(gotDevices)
+  .catch(err=>console.log('error:',err));
+  // navigator.mediaDevices.enumerateDevices()
+  //   .then(gotDevices);
   button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08,'triggers')
   select=new Button(viewportWidth*0.8,viewportHeight*0.725,viewportHeight*0.04,'cam')
   stopButton=new Button(viewportWidth*0.8,viewportHeight*0.625,viewportHeight*0.04,'stop')
