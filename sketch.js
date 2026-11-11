@@ -72,6 +72,7 @@ function preload(){
 
 
 function gotDevices(deviceInfos) {
+  // console.log(deviceInfos);
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
     if (deviceInfo.kind == 'videoinput') {
@@ -126,8 +127,8 @@ function setup() {
   
   // colorMode(HSB);
   source=createImage(sourceW, sourceH);
-  capture = createCapture(VIDEO,{ flipped:true });
-  capture.hide();
+  // capture = createCapture(VIDEO,{ flipped:true });
+  // capture.hide();
   bw=inputWidth/numBars
   let scanForTriggers=false
   for(let i=0; i<numBars; i++){
