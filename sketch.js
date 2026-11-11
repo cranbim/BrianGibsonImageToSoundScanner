@@ -2,7 +2,7 @@
 // It's not elegant or anything. Created specifically to complement the art work 'Tower of Babel'
 // in response to Brian's question - what would this sound like?
 
-let version=0.022
+let version=0.023
 let capture;
 var source;
 var cells;
@@ -84,8 +84,8 @@ function gotDevices(deviceInfos) {
   }
   console.log(devices);
   numDevices=devices.length
-  let supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
-  console.log(supportedConstraints);
+  // let supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
+  // console.log(supportedConstraints);
   constraints = {
     video: {
       deviceId: {
