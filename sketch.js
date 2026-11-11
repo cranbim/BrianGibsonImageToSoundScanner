@@ -97,7 +97,7 @@ function gotDevices(deviceInfos) {
 }
 
 
-function setup() {
+async function setup() {
   if(windowWidth>windowHeight/1.6){
     createCanvas(windowHeight/1.8, windowHeight);
   } else {
@@ -117,6 +117,7 @@ function setup() {
   droneHeight=inputWidth*0.25
   sourceW=inputWidth
   sourceH=inputHeight
+  await navigator.mediaDevices.getUserMedia({ video: true });
   navigator.mediaDevices.enumerateDevices()
     .then(gotDevices);
   button=new Button(viewportWidth*0.8,viewportHeight*0.875,viewportHeight*0.08,'triggers')
