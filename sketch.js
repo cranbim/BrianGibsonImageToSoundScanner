@@ -2,7 +2,7 @@
 // It's not elegant or anything. Created specifically to complement the art work 'Tower of Babel'
 // in response to Brian's question - what would this sound like?
 
-let version=0.020
+let version=0.021
 let capture;
 var source;
 var cells;
